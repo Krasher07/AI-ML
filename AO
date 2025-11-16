@@ -1,0 +1,18 @@
+graph = {
+'A': [('B', 'AND', 1), ('C', 'OR', 3)],
+'B': [('D', 'OR', 1), ('E', 'OR', 1)],
+'C': [('F', 'OR', 2)],
+'D': [], 'E': [], 'F': []
+}
+heuristic = {'A':3, 'B':2, 'C':1, 'D':0, 'E':0, 'F':0}
+def ao_star(node):
+if not graph[node]:
+return heuristic[node]
+min_cost = float('inf')
+for child, relation, cost in graph[node]:
+total = cost + heuristic[child]
+if total < min_cost:
+min_cost = total
+heuristic[node] = min_cost
+return heuristic[node]
+print("Updated heuristic value of root (A):", ao_star('A'))
